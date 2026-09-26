@@ -23,8 +23,22 @@ workflows:
             include: true
             source: true
       scripts:
-        - name: Set up code signing settings on Xcode project
-          script: xcode-project use-profiles --project=MyHoroscope2.xcodeproj
+      
+        scripts:
+  - name: Diagnose signing
+    script: |
+      echo "=== XCODE PROJECT ==="
+      ls -la "$CM_BUILD_DIR/MyHoroscope2.xcodeproj"
+
+      echo "=== PROJECT TARGETS ==="
+      xcodebuild -project "$CM_BUILD_DIR/MyHoroscope2.xcodeproj" -list
+
+      echo "=== BUNDLE IDENTIFIERS ==="
+      xcodebuild \
+        -project "$CM_BUILD_DIR/MyHoroscope2.xcodeproj" \
+        -scheme "$XCODE_SCHEME" \
+        -showBuildSettings | grep -E 'PRODUCT_BUNDLE_IDENTIFIER|DEVELOPMENT_TEAM|CODE_SIGN_STYLE|CODE_SIGN_IDENTITY|PROVISIONING_PROFILE_SPECIFIER'
+
         - name: Increment build number
           script: |
             # agvtool new-version -all $(($BUILD_NUMBER + 1))
