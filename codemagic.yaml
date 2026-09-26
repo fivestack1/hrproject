@@ -1,9 +1,13 @@
 workflows:
   ios-release:
     name: iOS Release
+
     integrations:
       app_store_connect: CM Key
+
     environment:
+      xcode: latest
+
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.insightshoroscope.astrology
@@ -12,23 +16,19 @@ workflows:
         XCODE_PROJECT: "MyHoroscope2.xcodeproj"
         XCODE_SCHEME: "MyHoroscope2"
         BUNDLE_ID: "com.insightshoroscope.astrology"
-        APP_STORE_APPLE_ID: 6816404624
-
-      xcode: latest
+        APP_STORE_APPLE_ID: "6816404624"
 
     scripts:
-      - name: Set up provisioning profiles settings on Xcode project
-        script: xcode-project use-profiles
-      - name: Increment build number
+      - name: Set up code signing
         script: |
-          cd $CM_BUILD_DIR
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
-          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
-      - name: Build ipa for distribution
+          xcode-project use-profiles
+
+      - name: Build IPA
         script: |
           xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
+            --project "$XCODE_PROJECT" \
             --scheme "$XCODE_SCHEME"
+
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
@@ -38,5 +38,4 @@ workflows:
     publishing:
       app_store_connect:
         auth: integration
-
         submit_to_testflight: false
