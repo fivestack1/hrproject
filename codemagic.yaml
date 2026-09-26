@@ -24,8 +24,7 @@ workflows:
             source: true
       scripts:
         - name: Set up code signing settings on Xcode project
-          script: |
-            xcode-project use-profiles
+          script: xcode-project use-profiles --project=MyHoroscope2.xcodeproj
         - name: Increment build number
           script: |
             # agvtool new-version -all $(($BUILD_NUMBER + 1))
