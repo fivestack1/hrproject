@@ -44,10 +44,6 @@ workflows:
             -scheme "$XCODE_SCHEME" \
             -showBuildSettings | grep -E 'PRODUCT_BUNDLE_IDENTIFIER|DEVELOPMENT_TEAM|CODE_SIGN_STYLE|CODE_SIGN_IDENTITY|PROVISIONING_PROFILE_SPECIFIER'
 
-      - name: Test Xcode project
-  script: |
-    xcodebuild -project "$XCODE_PROJECT" -list
-
       - name: Increment build number
         script: |
           LATEST_BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID")
