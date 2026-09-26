@@ -1,0 +1,41 @@
+workflows:
+  ios-release:
+    name: iOS Release
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.insightshoroscope.astrology
+
+      vars:
+        XCODE_PROJECT: "MyHoroscope2.xcodeproj"
+        XCODE_SCHEME: "MyHoroscope2"
+
+      xcode: latest
+
+    scripts:
+      - name: Resolve Swift Package dependencies
+        script: |
+          xcodebuild -resolvePackageDependencies \
+            -project "$XCODE_PROJECT" \
+            -scheme "$XCODE_SCHEME"
+
+      - name: Set up code signing
+        script: |
+          xcode-project use-profiles
+
+      - name: Build IPA
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+
+    publishing:
+      app_store_connect:
+        auth: integration
+
+        submit_to_testflight: true
