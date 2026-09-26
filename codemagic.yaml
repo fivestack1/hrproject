@@ -1,56 +1,56 @@
 workflows:
-  ios-workflow:
-    name: iOS Workflow
+    ios-workflow:
+      name: iOS Workflow
+      integrations:
+        app_store_connect: CM Key
+      environment:
+        ios_signing:
+          distribution_type: app_store
+          bundle_identifier: com.insightshoroscope.astrology
+        vars:
+          XCODE_PROJECT: "MyHoroscope2.xcodeproj"
+          XCODE_SCHEME: "MyHoroscope2"
+          APP_STORE_APPLE_ID: "6816404624" 
+        xcode: 26.3 
+        cocoapods: default
+      triggering:
+        events:
+          - push
+          - tag
+          - pull_request
+        branch_patterns:
+          - pattern: 'develop'
+            include: true
+            source: true
+      scripts:
+        - name: Set up code signing settings on Xcode project
+          script: xcode-project use-profiles --project=MyHoroscope2.xcodeproj
+        - name: Increment build number
+          script: |
+            # agvtool new-version -all $(($BUILD_NUMBER + 1))
+            agvtool new-version -all $(($(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID") + 1))
+        - name: Build ipa for distribution
+          script: |
+            xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
+      artifacts:
+        - build/ios/ipa/*.ipa
+        - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      publishing:
+        app_store_connect:
+          # Use referenced App Store Connect API key to authenticate binary upload
+          auth: integration 
 
-    integrations:
-      app_store_connect: CM Key
+          # Configuration related to TestFlight (optional)
 
-    environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.insightshoroscope.astrology
+          # Optional boolean, defaults to false. Whether or not to submit the uploaded
+          # build to TestFlight beta review. Required for distributing to beta groups.
+          # Note: This action is performed during post-processing.
+          submit_to_testflight: true 
 
-      vars:
-        XCODE_PROJECT: "MyHoroscope2.xcodeproj"
-        XCODE_SCHEME: "MyHoroscope2"
-        APP_STORE_APPLE_ID: "6816404624"
-
-      xcode: 26.3
-      cocoapods: default
-
-    triggering:
-      events:
-        - push
-        - tag
-        - pull_request
-
-      branch_patterns:
-        - pattern: 'develop'
-          include: true
-          source: true
-
-    scripts:
-      - name: Diagnose signing
-        script: |
-          echo "=== XCODE PROJECT ==="
-          ls -la "$CM_BUILD_DIR/MyHoroscope2.xcodeproj"
-
-          echo "=== PROJECT TARGETS ==="
-          xcodebuild -project "$CM_BUILD_DIR/MyHoroscope2.xcodeproj" -list
-
-          echo "=== BUNDLE IDENTIFIERS ==="
-          xcodebuild \
-            -project "$CM_BUILD_DIR/MyHoroscope2.xcodeproj" \
-            -scheme "$XCODE_SCHEME" \
-            -showBuildSettings | grep -E 'PRODUCT_BUNDLE_IDENTIFIER|DEVELOPMENT_TEAM|CODE_SIGN_STYLE|CODE_SIGN_IDENTITY|PROVISIONING_PROFILE_SPECIFIER'
-
-      - name: Increment build number
-        script: |
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APPLE_ID")
-          agvtool new-version -all $((LATEST_BUILD_NUMBER + 1))
-
-      - name: Build ipa for distribution
-        script: |
-          xcode-project build-ipa \
-            --project "$XCODE_PROJECT" \
-            --scheme "$XCODE_SCHEME"
+          # Optional boolean, defaults to false. Set to true to automatically expire 
+          # previous build in review or waiting for review in Testflight before
+          # submitting a new build to beta review. Expired builds will no longer be available for testers.
+          # Note: This action is performed during post-processing.
+          #expire_build_submitted_for_review: true
+          
+          # Configuration related to App Store (optional)
