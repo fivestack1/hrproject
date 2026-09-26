@@ -15,7 +15,7 @@ workflows:
         XCODE_SCHEME: "MyHoroscope2"
         APP_STORE_APPLE_ID: "6816404624"
 
-      xcode: latest
+      xcode: 26.3
       cocoapods: default
 
     triggering:
@@ -43,6 +43,10 @@ workflows:
             -project "$CM_BUILD_DIR/MyHoroscope2.xcodeproj" \
             -scheme "$XCODE_SCHEME" \
             -showBuildSettings | grep -E 'PRODUCT_BUNDLE_IDENTIFIER|DEVELOPMENT_TEAM|CODE_SIGN_STYLE|CODE_SIGN_IDENTITY|PROVISIONING_PROFILE_SPECIFIER'
+
+      - name: Test Xcode project
+  script: |
+    xcodebuild -project "$XCODE_PROJECT" -list
 
       - name: Increment build number
         script: |
