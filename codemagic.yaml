@@ -15,12 +15,6 @@ workflows:
       xcode: latest
 
     scripts:
-      - name: Resolve Swift Package dependencies
-        script: |
-          xcodebuild -resolvePackageDependencies \
-            -project "$XCODE_PROJECT" \
-            -scheme "$XCODE_SCHEME"
-
       - name: Set up code signing
         script: |
           xcode-project use-profiles
