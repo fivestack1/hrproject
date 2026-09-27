@@ -5148,8 +5148,8 @@ final class SubscriptionManager {
 
     // MARK: - Product IDs
 
-    static let weeklyID = "cellmap_pro_weekly"
-    static let yearlyID = "cellmap_pro_yearly"
+    static let weeklyID = "horoscope001"
+    static let yearlyID = "horoscope002"
 
     // MARK: - Published State
 
