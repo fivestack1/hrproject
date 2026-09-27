@@ -8,17 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		179BA37EA78298872A5C9FE1 /* AstrologyHoroscopeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD9608C5415DD5A8CF2B487 /* AstrologyHoroscopeApp.swift */; };
-		809AEFD210BCEDCD45CC8640 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF09BE0CF20147AFEF4C8D8 /* ContentView.swift */; };
 		8769CD44360238B69946A772 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F8360C130CCF43D54D73D51 /* Assets.xcassets */; };
-		04DB86FA12B0ADC402003CCA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2DF266F2F5FED1E72169711 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		EA65998A1CE56A725583FB12 /* AstrologyHoroscope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstrologyHoroscope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD9608C5415DD5A8CF2B487 /* AstrologyHoroscopeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrologyHoroscopeApp.swift; sourceTree = "<group>"; };
-		ADF09BE0CF20147AFEF4C8D8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9F8360C130CCF43D54D73D51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F2DF266F2F5FED1E72169711 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,19 +48,9 @@
 			isa = PBXGroup;
 			children = (
 				DAD9608C5415DD5A8CF2B487 /* AstrologyHoroscopeApp.swift */,
-				ADF09BE0CF20147AFEF4C8D8 /* ContentView.swift */,
 				9F8360C130CCF43D54D73D51 /* Assets.xcassets */,
-				122FE2DF9B3C638470688640 /* Preview Content */,
 			);
 			path = AstrologyHoroscope;
-			sourceTree = "<group>";
-		};
-		122FE2DF9B3C638470688640 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				F2DF266F2F5FED1E72169711 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +123,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				809AEFD210BCEDCD45CC8640 /* ContentView.swift in Sources */,
 				179BA37EA78298872A5C9FE1 /* AstrologyHoroscopeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,7 +256,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AstrologyHoroscope/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Astrology;
@@ -300,7 +284,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"AstrologyHoroscope/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Astrology;
