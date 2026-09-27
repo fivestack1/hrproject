@@ -103,7 +103,7 @@ struct AstroCard<Content: View>: View {
     }
 }
 
-truct CardStyle: ViewModifier {
+struct CardStyle: ViewModifier {
 
     func body(content: Content) -> some View {
         content
