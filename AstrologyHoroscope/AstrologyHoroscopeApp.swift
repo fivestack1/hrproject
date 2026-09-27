@@ -12,7 +12,7 @@ struct AstrologyHoroscopeApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                RootView()
+                ContentView()
                     .environment(subscription)
                     .task {
                         await checkSubscription()
