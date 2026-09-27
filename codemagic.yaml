@@ -8,8 +8,8 @@ workflows:
           distribution_type: app_store
           bundle_identifier: com.insightshoroscope.astrology
         vars:
-          XCODE_PROJECT: "MyHoroscope2.xcodeproj"
-          XCODE_SCHEME: "MyHoroscope2"
+          XCODE_PROJECT: "AstrologyHoroscope.xcodeproj"
+          XCODE_SCHEME: "AstrologyHoroscope"
           APP_STORE_APPLE_ID: "6816404624" 
         xcode: 26.3 
         cocoapods: default
@@ -24,7 +24,7 @@ workflows:
             source: true
       scripts:
         - name: Set up code signing settings on Xcode project
-          script: xcode-project use-profiles --project=MyHoroscope2.xcodeproj
+          script: xcode-project use-profiles --project=AstrologyHoroscope.xcodeproj
         - name: Increment build number
           script: |
             # agvtool new-version -all $(($BUILD_NUMBER + 1))
